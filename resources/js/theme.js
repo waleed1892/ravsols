@@ -3,14 +3,15 @@
   * Copyright 2018-2020 Medium Rare (undefined)
   */
 (function (global, factory) {
-  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('aos'), require('jquery'), require('scrollmonitor'), require('flickity'), require('smooth-scroll'), require('@tanem/svg-injector'), require('typed.js')) :
-  typeof define === 'function' && define.amd ? define(['exports', 'aos', 'jquery', 'scrollmonitor', 'flickity', 'smooth-scroll', '@tanem/svg-injector', 'typed.js'], factory) :
-  (global = global || self, factory(global.theme = {}, global.AOS, global.jQuery, global.scrollMonitor, global.Flickity, global.SmoothScroll, global.SVGInjector, global.Typed));
-}(this, (function (exports, AOS, jQuery, scrollMonitor, flickity, SmoothScroll, svgInjector, Typed) { 'use strict';
+  typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('aos'), require('jquery'), require('scrollmonitor'), require('flickity'), require('jarallax'), require('smooth-scroll'), require('@tanem/svg-injector'), require('typed.js')) :
+  typeof define === 'function' && define.amd ? define(['exports', 'aos', 'jquery', 'scrollmonitor', 'flickity', 'jarallax', 'smooth-scroll', '@tanem/svg-injector', 'typed.js'], factory) :
+  (global = global || self, factory(global.theme = {}, global.AOS, global.jQuery, global.scrollMonitor, global.Flickity, global.jarallax, global.SmoothScroll, global.SVGInjector, global.Typed));
+}(this, (function (exports, AOS, jQuery, scrollMonitor, flickity, jarallax$1, SmoothScroll, svgInjector, Typed) { 'use strict';
 
   AOS = AOS && AOS.hasOwnProperty('default') ? AOS['default'] : AOS;
   jQuery = jQuery && jQuery.hasOwnProperty('default') ? jQuery['default'] : jQuery;
   scrollMonitor = scrollMonitor && scrollMonitor.hasOwnProperty('default') ? scrollMonitor['default'] : scrollMonitor;
+  jarallax$1 = jarallax$1 && jarallax$1.hasOwnProperty('default') ? jarallax$1['default'] : jarallax$1;
   SmoothScroll = SmoothScroll && SmoothScroll.hasOwnProperty('default') ? SmoothScroll['default'] : SmoothScroll;
   Typed = Typed && Typed.hasOwnProperty('default') ? Typed['default'] : Typed;
 
@@ -215,6 +216,152 @@
       });
     });
   })();
+
+  //
+
+  var mrUtil = function ($) {
+    var VERSION = '1.2.0';
+    var Tagname = {
+      SCRIPT: 'script'
+    };
+    var Selector = {
+      RECAPTCHA: '[data-recaptcha]'
+    }; // Activate tooltips
+
+    $('body').tooltip({
+      selector: '[data-toggle="tooltip"]',
+      container: 'body'
+    }); // Activate popovers
+
+    $('body').popover({
+      selector: '[data-toggle="popover"]',
+      container: 'body'
+    }); // Activate toasts
+
+    $('.toast').toast();
+    var Util = {
+      version: VERSION,
+      selector: Selector,
+      activateIframeSrc: function activateIframeSrc(iframe) {
+        var $iframe = $(iframe);
+
+        if ($iframe.attr('data-src')) {
+          $iframe.attr('src', $iframe.attr('data-src'));
+        }
+      },
+      idleIframeSrc: function idleIframeSrc(iframe) {
+        var $iframe = $(iframe);
+        $iframe.attr('data-src', $iframe.attr('src')).attr('src', '');
+      },
+      forEach: function forEach(array, callback, scope) {
+        if (array) {
+          if (array.length) {
+            for (var i = 0; i < array.length; i += 1) {
+              callback.call(scope, i, array[i]); // passes back stuff we need
+            }
+          } else if (array[0] || mrUtil.isElement(array)) {
+            callback.call(scope, 0, array);
+          }
+        }
+      },
+      dedupArray: function dedupArray(arr) {
+        return arr.reduce(function (p, c) {
+          // create an identifying String from the object values
+          var id = JSON.stringify(c); // if the JSON string is not found in the temp array
+          // add the object to the output array
+          // and add the key to the temp array
+
+          if (p.temp.indexOf(id) === -1) {
+            p.out.push(c);
+            p.temp.push(id);
+          }
+
+          return p; // return the deduped array
+        }, {
+          temp: [],
+          out: []
+        }).out;
+      },
+      isElement: function isElement(obj) {
+        return !!(obj && obj.nodeType === 1);
+      },
+      getFuncFromString: function getFuncFromString(funcName, context) {
+        var findFunc = funcName || null; // if already a function, return
+
+        if (typeof findFunc === 'function') return funcName; // if string, try to find function or method of object (of "obj.func" format)
+
+        if (typeof findFunc === 'string') {
+          if (!findFunc.length) return null;
+          var target = context || window;
+          var func = findFunc.split('.');
+
+          while (func.length) {
+            var ns = func.shift();
+            if (typeof target[ns] === 'undefined') return null;
+            target = target[ns];
+          }
+
+          if (typeof target === 'function') return target;
+        } // return null if could not parse
+
+
+        return null;
+      },
+      getScript: function getScript(source, callback) {
+        var script = document.createElement(Tagname.SCRIPT);
+        var prior = document.getElementsByTagName(Tagname.SCRIPT)[0];
+        script.async = 1;
+        script.defer = 1;
+
+        script.onreadystatechange = function (_, isAbort) {
+          if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
+            script.onload = null;
+            script.onreadystatechange = null;
+            script = undefined;
+
+            if (!isAbort && callback && typeof callback === 'function') {
+              callback();
+            }
+          }
+        };
+
+        script.onload = script.onreadystatechange;
+        script.src = source;
+        prior.parentNode.insertBefore(script, prior);
+      }
+    };
+    return Util;
+  }(jQuery);
+
+  //
+
+  (function ($) {
+    if (typeof jarallax$1 === 'function') {
+      $('.alert-dismissible').on('closed.bs.alert', function () {
+        jarallax$1(document.querySelectorAll('[data-jarallax],[data-jarallax-video]'), 'onScroll');
+      });
+      $(document).on('resized.mr.overlayNav', function () {
+        jarallax$1(document.querySelectorAll('[data-jarallax],[data-jarallax-video]'), 'onResize');
+      });
+      document.addEventListener('injected.mr.SVGInjector', function () {
+        jarallax$1(document.querySelectorAll('[data-jarallax],[data-jarallax-video]'), 'onResize');
+      });
+      var jarallaxOptions = {
+        disableParallax: /iPad|iPhone|iPod|Android/,
+        disableVideo: /iPad|iPhone|iPod|Android/
+      };
+      $(window).on('load', function () {
+        jarallax$1(document.querySelectorAll('[data-jarallax]'), jarallaxOptions);
+        var jarallaxDelay = document.querySelectorAll('[data-jarallax-video-delay]');
+        mrUtil.forEach(jarallaxDelay, function (index, elem) {
+          var source = elem.getAttribute('data-jarallax-video-delay');
+          elem.removeAttribute('data-jarallax-video-delay');
+          elem.setAttribute('data-jarallax-video', source);
+        });
+        jarallax$1(document.querySelectorAll('[data-jarallax-delay],[data-jarallax-video]'), jarallaxOptions);
+      });
+    }
+  })(jQuery);
 
   //
 
@@ -1366,122 +1513,6 @@
 
 
     return TypedText;
-  }(jQuery);
-
-  //
-
-  var mrUtil = function ($) {
-    var VERSION = '1.2.0';
-    var Tagname = {
-      SCRIPT: 'script'
-    };
-    var Selector = {
-      RECAPTCHA: '[data-recaptcha]'
-    }; // Activate tooltips
-
-    $('body').tooltip({
-      selector: '[data-toggle="tooltip"]',
-      container: 'body'
-    }); // Activate popovers
-
-    $('body').popover({
-      selector: '[data-toggle="popover"]',
-      container: 'body'
-    }); // Activate toasts
-
-    $('.toast').toast();
-    var Util = {
-      version: VERSION,
-      selector: Selector,
-      activateIframeSrc: function activateIframeSrc(iframe) {
-        var $iframe = $(iframe);
-
-        if ($iframe.attr('data-src')) {
-          $iframe.attr('src', $iframe.attr('data-src'));
-        }
-      },
-      idleIframeSrc: function idleIframeSrc(iframe) {
-        var $iframe = $(iframe);
-        $iframe.attr('data-src', $iframe.attr('src')).attr('src', '');
-      },
-      forEach: function forEach(array, callback, scope) {
-        if (array) {
-          if (array.length) {
-            for (var i = 0; i < array.length; i += 1) {
-              callback.call(scope, i, array[i]); // passes back stuff we need
-            }
-          } else if (array[0] || mrUtil.isElement(array)) {
-            callback.call(scope, 0, array);
-          }
-        }
-      },
-      dedupArray: function dedupArray(arr) {
-        return arr.reduce(function (p, c) {
-          // create an identifying String from the object values
-          var id = JSON.stringify(c); // if the JSON string is not found in the temp array
-          // add the object to the output array
-          // and add the key to the temp array
-
-          if (p.temp.indexOf(id) === -1) {
-            p.out.push(c);
-            p.temp.push(id);
-          }
-
-          return p; // return the deduped array
-        }, {
-          temp: [],
-          out: []
-        }).out;
-      },
-      isElement: function isElement(obj) {
-        return !!(obj && obj.nodeType === 1);
-      },
-      getFuncFromString: function getFuncFromString(funcName, context) {
-        var findFunc = funcName || null; // if already a function, return
-
-        if (typeof findFunc === 'function') return funcName; // if string, try to find function or method of object (of "obj.func" format)
-
-        if (typeof findFunc === 'string') {
-          if (!findFunc.length) return null;
-          var target = context || window;
-          var func = findFunc.split('.');
-
-          while (func.length) {
-            var ns = func.shift();
-            if (typeof target[ns] === 'undefined') return null;
-            target = target[ns];
-          }
-
-          if (typeof target === 'function') return target;
-        } // return null if could not parse
-
-
-        return null;
-      },
-      getScript: function getScript(source, callback) {
-        var script = document.createElement(Tagname.SCRIPT);
-        var prior = document.getElementsByTagName(Tagname.SCRIPT)[0];
-        script.async = 1;
-        script.defer = 1;
-
-        script.onreadystatechange = function (_, isAbort) {
-          if (isAbort || !script.readyState || /loaded|complete/.test(script.readyState)) {
-            script.onload = null;
-            script.onreadystatechange = null;
-            script = undefined;
-
-            if (!isAbort && callback && typeof callback === 'function') {
-              callback();
-            }
-          }
-        };
-
-        script.onload = script.onreadystatechange;
-        script.src = source;
-        prior.parentNode.insertBefore(script, prior);
-      }
-    };
-    return Util;
   }(jQuery);
 
   (function () {
