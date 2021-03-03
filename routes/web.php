@@ -17,3 +17,9 @@ Route::get('/', function () {
     return view('index');
 });
 Route::post('message', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
+
+Route::prefix('admin')->group(function () {
+    Route::resource('posts', \App\Http\Controllers\PostController::class);
+});
+
+Route::resource('blog', \App\Http\Controllers\PostController::class)->only('index', 'show');

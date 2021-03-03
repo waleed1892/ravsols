@@ -30,6 +30,9 @@
                     <li class="nav-item">
                         <a data-smooth-scroll href="#testimonials" class="nav-link">Testimonials</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="/blog" class="nav-link">Blog</a>
+                    </li>
                 </ul>
             </div>
         </div>
