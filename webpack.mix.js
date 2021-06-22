@@ -22,4 +22,6 @@ mix.js('resources/js/app.js', 'public/js')
         processCssUrls: false
     })
 
-mix.browserSync('http://127.0.0.1:8000');
+mix.browserSync('http://ravsols.test');
+
+mix.disableNotifications();

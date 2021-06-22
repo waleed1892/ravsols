@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -40,8 +41,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'image' => 'required',
+            'title' => 'required',
+            'description' => 'required'
+        ]);
         $input = $request->all();
         $image = $request->image;
+        $input['slug'] = Str::slug($input['title']);
         $name = time() . $image->getClientOriginalName();
         $input['image'] = $name;
         $image->storeAs('public/images', $name);

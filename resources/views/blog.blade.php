@@ -56,7 +56,7 @@
                                             <div
                                                 class="text-small text-muted">{{$post->created_at->toFormattedDateString()}}</div>
                                         </div>
-                                        <a href="#"><h1>{{$post->title}}</h1></a>
+                                        <a href="{{route('posts.show',$post->id)}}"><h1>{{$post->title}}</h1></a>
                                         <p class="lead">{!! \Illuminate\Support\Str::limit($post->description,'100') !!}</p>
                                         <a href="#" class="lead">Read More</a>
                                     </div>
@@ -66,32 +66,36 @@
                     @endforeach
                 </div>
             </div>
-            <div class="row justify-content-center mt-4">
-                <div class="col-auto">
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link rounded" href="#" aria-label="Previous">
-                                    <img src="assets/img/icons/interface/icon-arrow-left.svg" alt="Arrow Left"
-                                         class="icon icon-xs bg-primary" data-inject-svg>
-                                </a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link rounded" href="#" aria-label="Next">
-                                    <img src="assets/img/icons/interface/icon-arrow-right.svg" alt="Arrow Right"
-                                         class="icon icon-xs bg-primary" data-inject-svg>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
+            @if($posts->count())
+                <div class="row justify-content-center mt-4">
+                    <div class="col-auto">
+                        <nav>
+                            <ul class="pagination">
+                                <li class="page-item">
+                                    <a class="page-link rounded" href="#" aria-label="Previous">
+                                        <img src="{{asset('images/icons/interface/icon-arrow-left.svg')}}"
+                                             alt="Arrow Left"
+                                             class="icon icon-xs bg-primary" data-inject-svg>
+                                    </a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link rounded" href="#" aria-label="Next">
+                                        <img src="{{asset('images/icons/interface/icon-arrow-right.svg')}}"
+                                             alt="Arrow Right"
+                                             class="icon icon-xs bg-primary" data-inject-svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
                 </div>
-            </div>
+            @endif
         </div>
     </section>
 @endsection

@@ -16,22 +16,17 @@
     <x-admin.sidebar/>
     <div class="w-4/5 bg-gray-200">
         <div class="flex bg-gray-800 p-2 items-center">
-            <div class="w-1/4">
+            <div class="w-4/12">
                 <h1 class="text-white text-2xl uppercase font-sans font-light">{{str_replace('admin/','',request()->path())}}</h1>
             </div>
-            <div class="w-2/4">
+            <div class="w-4/12">
                 <input type="text" name
                        class="bg-transparent border-b transition-colors duration-300 w-3/4 text-gray-400 focus:border-green-500"
                        placeholder="Search..." id/>
             </div>
-            <div class="w-1/4 flex flex-wrap">
-                <div class="relative navbar-icon">
-                    {{--                    <fa size="lg" class="fill-current text-gray-600" :icon="['fas', 'comments']"></fa>--}}
-                    {{--                    <span class="rounded-full w-3 h-3 bg-green-500 absolute"></span>--}}
-                </div>
-                <div class="relative navbar-icon ml-3">
-                    {{--                    <fa size="lg" class="fill-current text-gray-600" :icon="['fas', 'bell']"></fa>--}}
-                    {{--                    <span class="rounded-full w-3 h-3 bg-green-500 absolute"></span>--}}
+            <div class="w-4/12">
+                <div class="text-right">
+                    <a href="/" class="text-white">Visit Site</a>
                 </div>
             </div>
         </div>

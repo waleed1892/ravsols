@@ -127,7 +127,7 @@ _ckeditor_ckeditor5_build_classic__WEBPACK_IMPORTED_MODULE_0___default.a.create(
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! E:\ravsols\resources\js\admin.js */"./resources/js/admin.js");
+module.exports = __webpack_require__(/*! C:\laragon\www\ravsols\resources\js\admin.js */"./resources/js/admin.js");
 
 
 /***/ })
