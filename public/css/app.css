@@ -8073,7 +8073,6 @@ button.bg-primary-3:focus {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -8093,9 +8092,8 @@ button.bg-primary-3:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -11990,7 +11988,6 @@ figure {
 }
 
 .sticky-xs-top {
-  position: -webkit-sticky !important;
   position: sticky !important;
   top: 0;
   z-index: 1020;
@@ -12002,7 +11999,6 @@ figure {
 
 @media (min-width: 576px) {
   .sticky-sm-top {
-    position: -webkit-sticky !important;
     position: sticky !important;
     top: 0;
     z-index: 1020;
@@ -12015,7 +12011,6 @@ figure {
 
 @media (min-width: 768px) {
   .sticky-md-top {
-    position: -webkit-sticky !important;
     position: sticky !important;
     top: 0;
     z-index: 1020;
@@ -12028,7 +12023,6 @@ figure {
 
 @media (min-width: 992px) {
   .sticky-lg-top {
-    position: -webkit-sticky !important;
     position: sticky !important;
     top: 0;
     z-index: 1020;
@@ -12041,7 +12035,6 @@ figure {
 
 @media (min-width: 1200px) {
   .sticky-xl-top {
-    position: -webkit-sticky !important;
     position: sticky !important;
     top: 0;
     z-index: 1020;
@@ -13593,7 +13586,6 @@ section > .divider-top {
   .docs-sidebar {
     height: calc(100vh - 80px);
     overflow-y: scroll;
-    position: -webkit-sticky;
     position: sticky;
     top: 80px;
   }

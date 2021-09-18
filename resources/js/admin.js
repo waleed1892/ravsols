@@ -1,7 +1,5 @@
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import $ from 'jquery'
+import axios from 'axios'
 
-ClassicEditor
-    .create(document.querySelector('#editor'))
-    .catch(error => {
-        console.error(error);
-    });
+window.$ = $;
+window.axios = axios

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -42,9 +43,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'required',
             'title' => 'required',
-            'description' => 'required'
+            'content' => 'required'
         ]);
         $input = $request->all();
         $image = $request->image;
@@ -54,7 +54,7 @@ class PostController extends Controller
         $image->storeAs('public/images', $name);
         $post = new Post($input);
         $post->save();
-        return $this->index();
+        return 'post created successfully';
     }
 
     /**
@@ -63,9 +63,13 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->first();
+        if (!$post) {
+            abort(404);
+        }
+        return view('post.show')->with('post', $post);
     }
 
     /**
@@ -76,7 +80,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('post.edit')->with('post', $post);
     }
 
     /**
@@ -88,7 +92,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+        $input = $request->all();
+        if ($request->image) {
+            Storage::delete($post->image);
+            $post->image->delete();
+            $image = $request->image;
+            $name = time() . $image->getClientOriginalName();
+            $input['image'] = $name;
+            $image->storeAs('public/images', $name);
+        }
+        $post->update($input);
+        return 'post updated successfully';
     }
 
     /**
