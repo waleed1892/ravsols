@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
+    @stack('styles')
 </head>
 
 <body>
@@ -35,8 +36,9 @@
         </div>
     </div>
 </div>
-<script src="{{asset('js/admin.js')}}"/>
-
+@stack('before_main_scripts')
+<script src="{{asset('js/admin.js')}}"></script>
+@stack('after_main_scripts')
 </body>
 
 </html>

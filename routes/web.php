@@ -24,3 +24,4 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::resource('blog', \App\Http\Controllers\PostController::class)->only('index', 'show');
+Route::get('/{any}', [\App\Http\Controllers\PostController::class, 'show'])->where('any', '.*');

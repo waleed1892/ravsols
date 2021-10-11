@@ -19,10 +19,10 @@
                         <div class="text-sm leading-5 text-gray-800">{{$post->title}}</div>
                     </td>
                     <td class="px-6 py-4 whitespace-no-wrap">
-                        <div class="text-sm leading-5 text-gray-800">{!! $post->description !!}</div>
+                        <div class="text-sm leading-5 text-gray-800">{!! $post->html_content !!}</div>
                     </td>
                     <td class="flex items-center my-2">
-                        <a href="/admin/posts/edit/{{$post->id}}"
+                        <a href="{{route('posts.edit',['post' => $post])}}"
                            class="bg-indigo-600 rounded text-white px-4 py-1 hover:bg-indigo-700">Edit</a>
                         <form method="post" class="ml-2" action="{{route('posts.destroy',$post->id)}}">
                             @csrf

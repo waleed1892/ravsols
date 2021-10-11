@@ -4,6 +4,7 @@
     </h2>
     <div class="flex flex-wrap flex-col">
         <x-admin.sidebarlink text="Posts" href="admin/posts"/>
+        <x-admin.sidebarlink text="Projects" href="admin/projects"/>
         {{--        <x-admin.sidebarlink text="products" href="/admin/products"/>--}}
         {{--        <x-admin.sidebarlink text="brands" href="/admin/brands"/>--}}
         {{--        <x-admin.sidebarlink text="categories" href="/admin/categories"/>--}}

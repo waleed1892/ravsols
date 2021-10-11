@@ -9,7 +9,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-xl-9 d-flex flex-wrap justify-content-center">
+            <div class="col-xl-10 d-flex flex-wrap justify-content-center">
                 <div class="col-lg-6 mb-3 mb-md-4" data-aos="flip-right" data-aos-delay="400">
                     <div class="card card-body h-100 shadow-sm pr-md-5">
                         <div class="d-flex">

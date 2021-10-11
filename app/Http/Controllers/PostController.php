@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostController extends Controller
@@ -43,12 +44,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-//        dd($request->all());
-
         $request->validate([
             'image' => 'required',
             'title' => 'required',
-            'description' => 'required'
+            'content' => 'required'
         ]);
         $input = $request->all();
 
@@ -61,8 +60,7 @@ class PostController extends Controller
 
 
         $post->save();
-        $post->tags()->sync($request->tags);
-        return $this->index();
+        return 'post created successfully';
     }
 
     /**
@@ -71,9 +69,13 @@ class PostController extends Controller
      * @param \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($slug)
     {
-        //
+        $post = Post::where('slug', $slug)->first();
+        if (!$post) {
+            abort(404);
+        }
+        return view('post.show')->with('post', $post);
     }
 
     /**
