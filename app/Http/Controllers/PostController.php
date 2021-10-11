@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -26,11 +27,12 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+//     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('post.create');
+        $tags = Tag::all();
+        return view('post.create')->with(['tags'=>$tags]);
     }
 
     /**
@@ -41,19 +43,25 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
+
         $request->validate([
             'image' => 'required',
             'title' => 'required',
             'description' => 'required'
         ]);
         $input = $request->all();
+
         $image = $request->image;
         $input['slug'] = Str::slug($input['title']);
         $name = time() . $image->getClientOriginalName();
         $input['image'] = $name;
         $image->storeAs('public/images', $name);
         $post = new Post($input);
+
+
         $post->save();
+        $post->tags()->sync($request->tags);
         return $this->index();
     }
 
@@ -77,6 +85,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        return view('post.edit')->with(['post',$post]);
+
     }
 
     /**

@@ -22,7 +22,7 @@
                         <div class="text-sm leading-5 text-gray-800">{!! $post->description !!}</div>
                     </td>
                     <td class="flex items-center my-2">
-                        <a href=""
+                        <a href="/admin/posts/edit/{{$post->id}}"
                            class="bg-indigo-600 rounded text-white px-4 py-1 hover:bg-indigo-700">Edit</a>
                         <form method="post" class="ml-2" action="{{route('posts.destroy',$post->id)}}">
                             @csrf
