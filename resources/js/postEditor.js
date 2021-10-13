@@ -3,7 +3,6 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import {QuillDeltaToHtmlConverter} from "quill-delta-to-html";
 
-
 $(document).ready(function () {
     let toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
