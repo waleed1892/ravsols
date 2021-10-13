@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,12 +16,20 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::get('/', function () {
-    $posts = \App\Models\Post::where('published',1)->get();
-    return view('index')->with(['posts'=>$posts]);
+    $posts = \App\Models\Post::where('published', 1)->get();
+    return view('index')->with(['posts' => $posts]);
 });
 
 Route::get('/del', function () {
-    Storage::delete('1633947705Capture.png');
+
+    $date = Carbon::now();
+    $currentdate =$date->toDateString();
+    $posts = \App\Models\Post::where('schedule_post', $currentdate)->get() ;
+
+    foreach ($posts as $post){
+        $post->update(['published'=> '1']);
+    }
+
 });
 Route::post('message', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
 

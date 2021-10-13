@@ -32,9 +32,9 @@
 
                 <div class="mt-5">
                     <label for="start">Schedule Post date:</label>
-                    <input type="date" id="start" class="custom-input" name="trip-start"
-                           value="2018-07-22"
-                           min="2018-01-01" max="2018-12-31">
+                    <input type="date" id="start" class="custom-input" name="schedule_post"
+                           value=""
+                           max="2028-12-31">
                 </div>
 
                 <div class="mt-4">

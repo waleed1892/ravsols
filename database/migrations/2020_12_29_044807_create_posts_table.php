@@ -20,7 +20,8 @@ class CreatePostsTable extends Migration
             $table->text('content');
             $table->text('html_content');
             $table->text('image')->nullable();
-            $table->boolean('published')->default(true);
+            $table->date('schedule_post')->nullable();
+            $table->boolean('published')->default(false);
             $table->timestamps();
         });
     }

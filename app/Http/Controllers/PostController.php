@@ -102,12 +102,15 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
+
+//        dd($request->all());
         $request->validate([
             'title' => 'required',
             'content' => 'required',
         ]);
 
         $post['slug'] = Str::slug($request['title']);
+        $post['schedule_post'] = $request->schedule_post;
         if($request->has('image')){
         $image = $request->image;
         $name = time() . $image->getClientOriginalName();
