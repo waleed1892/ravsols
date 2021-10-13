@@ -28,12 +28,12 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-//     * @return \Illuminate\Http\Response
+     * //     * @return \Illuminate\Http\Response
      */
     public function create()
     {
         $tags = Tag::all();
-        return view('post.create')->with(['tags'=>$tags]);
+        return view('post.create')->with(['tags' => $tags]);
     }
 
     /**
@@ -44,22 +44,23 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-            $request->validate([
-                'image' => 'required',
-                'title' => 'required',
-                'content' => 'required'
-            ]);
-        $input = $request->all();
+        $request->validate([
+            'image' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+        ]);
 
+        $input = $request->all();
         $image = $request->image;
         $input['slug'] = Str::slug($input['title']);
         $name = time() . $image->getClientOriginalName();
         $input['image'] = $name;
         $image->storeAs('public/images', $name);
         $post = new Post($input);
-
-
         $post->save();
+        if($request->has('tags')){
+            $post->tags()->sync($request->tags);
+        }
         return 'post created successfully';
     }
 
@@ -86,11 +87,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
-//        dd($post);
-
-        return view('post.edit')->with(['post'=> $post]);
-
+        $tags = Tag::all();
+        $postTags = $post->tags->pluck('id');
+        return view('post.edit')->with(['post' => $post, 'tags'=>$tags , 'postTags'=>$postTags]);
     }
 
     /**
@@ -102,7 +101,27 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $post['slug'] = Str::slug($request['title']);
+        if($request->has('image')){
+        $image = $request->image;
+        $name = time() . $image->getClientOriginalName();
+        $post->image = $name;
+        $image->storeAs('public/images', $name);
+        }
+
+        if($request->has('tags')){
+            $post->tags()->sync($request->tags);
+        }
+        $request->has(published)?$post->published = $request->published:  $post->published = 0;
+        $post->save();
+//        $post->update( $request->all());
+
+        return 'post updated successfully';
     }
 
     /**

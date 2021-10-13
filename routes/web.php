@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Storage;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index');
 });
+
+Route::get('/del', function () {
+    Storage::delete('1633947705Capture.png');
+});
 Route::post('message', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
 
 Route::redirect('admin', 'admin/posts');
 Route::prefix('admin')->group(function () {
     Route::resource('posts', \App\Http\Controllers\PostController::class);
 });
+
+
 
 Route::resource('blog', \App\Http\Controllers\PostController::class)->only('index', 'show');
 Route::get('/{any}', [\App\Http\Controllers\PostController::class, 'show'])->where('any', '.*');

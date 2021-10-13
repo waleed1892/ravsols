@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <div class="bg-white shadow rounded-sm px-6 py-8">
-{{--        {{dd($post)}}--}}
+        {{--        {{dd($post)}}--}}
         <form id="postEditForm" enctype="multipart/form-data" method="post" action="{{route('posts.store')}}">
             @csrf
             @method('PUT')
@@ -23,6 +23,31 @@
                     <div id="postEditor"></div>
                 </div>
             </div>
+
+            <div class="mt-5">
+                <label for="" class="mt-5"> Select tags</label>
+                <select class="js-example-basic-multiple custom-input" name="tags[]" value="" multiple="multiple">
+                    @foreach($tags as $tag)
+                        <option value="{{$tag->id}}">{{$tag->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="mt-5">
+                <label for="start">Schedule Post date:</label>
+                <input type="date" id="start" class="custom-input" name="trip-start"
+                       value="2018-07-22"
+                       min="2018-01-01" max="2018-12-31">
+            </div>
+
+            <div class="mt-4">
+                <input type="checkbox" class="" id="is_published" name="published"
+                       @if($post->published ==1) checked=checked @endif
+                        value="1">
+                <label for="">Publish</label>
+            </div>
+
+
             <button class="bg-green-600 text-sm rounded text-white p-2 uppercase mt-4 px-6 py-2 font-semibold">save
             </button>
         </form>
@@ -37,5 +62,8 @@
         $(document).ready(function () {
             postEditor.setContents(JSON.parse(@json($post->content)))
         })
+
+        $('.js-example-basic-multiple').select2();
+        $('.js-example-basic-multiple').val(@json($postTags)).trigger('change');
     </script>
 @endpush
