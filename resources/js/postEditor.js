@@ -60,8 +60,8 @@ $(document).ready(function () {
         fd.append('content', JSON.stringify(content));
         fd.append('html_content', html)
         axios.post(`/admin/posts/${post_id}`, fd).then(res => {
-            // console.log(res.data)
-            window.location = '/admin/posts';
+            console.log(res.data)
+            // window.location = '/admin/posts';
         })
     })
 
