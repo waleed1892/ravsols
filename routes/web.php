@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::get('/', function () {
-    return view('index');
+    $posts = \App\Models\Post::where('published',1)->get();
+    return view('index')->with(['posts'=>$posts]);
 });
 
 Route::get('/del', function () {
@@ -27,8 +28,6 @@ Route::redirect('admin', 'admin/posts');
 Route::prefix('admin')->group(function () {
     Route::resource('posts', \App\Http\Controllers\PostController::class);
 });
-
-
 
 Route::resource('blog', \App\Http\Controllers\PostController::class)->only('index', 'show');
 Route::get('/{any}', [\App\Http\Controllers\PostController::class, 'show'])->where('any', '.*');

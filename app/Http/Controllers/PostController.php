@@ -17,10 +17,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate();
         if (\request()->is('admin/posts')) {
+            $posts = Post::paginate();
             return view('post.index')->with(['posts' => $posts]);
         } else {
+            $posts = Post::where('published',1)->paginate();
             return view('blog')->with(['posts' => $posts]);
         }
     }
@@ -117,7 +118,7 @@ class PostController extends Controller
         if($request->has('tags')){
             $post->tags()->sync($request->tags);
         }
-        $request->has(published)?$post->published = $request->published:  $post->published = 0;
+        $request->has('published')?$post->published = $request->published:  $post->published = 0;
         $post->save();
 //        $post->update( $request->all());
 
