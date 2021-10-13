@@ -44,11 +44,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => 'required',
-            'title' => 'required',
-            'content' => 'required'
-        ]);
+            $request->validate([
+                'image' => 'required',
+                'title' => 'required',
+                'content' => 'required'
+            ]);
         $input = $request->all();
 
         $image = $request->image;
@@ -87,7 +87,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
-        return view('post.edit')->with(['post',$post]);
+//        dd($post);
+
+        return view('post.edit')->with(['post'=> $post]);
 
     }
 

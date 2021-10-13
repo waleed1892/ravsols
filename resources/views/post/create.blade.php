@@ -12,10 +12,11 @@
                     placeholder="Title" type="input" name="title"/>
                 <input id="imageInput" class="custom-input mt-4" accept="image/*" type="file" name="image">
                 <div class="w-36 h-36 rounded bg-gray-100 mt-4 shadow-sm border border-gray-200">
-                    <img class="w-full h-full object-contain" id="imagePreview" src="" alt="">
+                        <img class="w-full h-full object-contain" id="imagePreview" src="https://via.placeholder.com/150x150?text=Add+image" alt="select iamge">
                 </div>
                 <div class="mt-4">
-                    <div id="postEditor"></div>
+                    <div id="postEditor">
+                    </div>
                 </div>
             </div>
             <button class="bg-green-600 text-sm rounded text-white p-2 uppercase mt-4 px-6 py-2 font-semibold">save
