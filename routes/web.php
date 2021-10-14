@@ -15,10 +15,6 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/test', function () {
-
-});
-
 Route::get('/', function () {
     return view('index');
 });
