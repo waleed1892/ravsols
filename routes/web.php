@@ -25,6 +25,8 @@ Route::redirect('admin', 'admin/posts');
 Route::prefix('admin')->group(function () {
     Route::resource('posts', \App\Http\Controllers\PostController::class);
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
+    Route::resource('tags', \App\Http\Controllers\TagController::class);
+    Route::resource('technologies', \App\Http\Controllers\TechnologyController::class);
 });
 
 Route::get('blog', 'App\Http\Controllers\PostController@blogPosts');
