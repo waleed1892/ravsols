@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
+Route::get('/test', function () {
+
+});
+
 Route::get('/', function () {
     return view('index');
 });
@@ -30,5 +34,3 @@ Route::prefix('admin')->group(function () {
 Route::get('blog', 'App\Http\Controllers\PostController@blogPosts');
 Route::get('/{any}', [\App\Http\Controllers\PostController::class, 'show'])->where('any', '.*');
 
-//Route::get('/test', function () {
-//});

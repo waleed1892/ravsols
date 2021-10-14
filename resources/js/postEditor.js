@@ -44,6 +44,7 @@ $(document).ready(function () {
         fd.append('content', JSON.stringify(content));
         fd.append('html_content', html)
         axios.post('/admin/posts', fd).then(res => {
+            console.log(res.data)
             window.location = '/admin/posts';
         }).catch(err => {
             console.log(err,'error')
@@ -61,7 +62,7 @@ $(document).ready(function () {
         fd.append('html_content', html)
         axios.post(`/admin/posts/${post_id}`, fd).then(res => {
             console.log(res.data)
-            // window.location = '/admin/posts';
+            window.location = '/admin/posts';
         })
     })
 
