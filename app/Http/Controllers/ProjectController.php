@@ -18,10 +18,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        if (\request()->is('admin/projects')) {
             $projects = Project::paginate();
             return view('project.index')->with(['projects' => $projects]);
-        }
     }
 
     /**

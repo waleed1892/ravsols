@@ -17,13 +17,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        if (\request()->is('admin/posts')) {
             $posts = Post::paginate();
             return view('post.index')->with(['posts' => $posts]);
-        } else {
+    }
+
+    public function blogPosts()
+    {
             $posts = Post::where('published',1)->paginate();
             return view('blog')->with(['posts' => $posts]);
-        }
     }
 
     /**
