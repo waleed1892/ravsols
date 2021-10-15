@@ -30,7 +30,6 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
         $tags = Tag::all();
         $techs = Technology::all();
         return view('project.create')->with(['tags' => $tags, 'techs'=> $techs ]);
@@ -62,8 +61,7 @@ class ProjectController extends Controller
         if($request->has('technologies')){
             $project->technologies()->sync($request->technologies);
         }
-        return redirect('admin/projects');
-
+        return redirect('admin/projects')->with('success', 'Record added successfully');
     }
 
     /**
@@ -108,7 +106,6 @@ class ProjectController extends Controller
     {
 //        dd($request->all());
         $request->validate([
-            'image' => 'required',
             'title' => 'required',
             'link' => 'required',
         ]);
@@ -128,7 +125,7 @@ class ProjectController extends Controller
             $project->technologies()->sync($request->technologies);
         }
 
-        return redirect('admin/projects');
+        return redirect('admin/projects') ->with('success', 'Record updated successfully');;
     }
 
     /**
@@ -140,6 +137,6 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        return redirect(route('projects.index'));
+        return redirect(route('projects.index')) ->with('success', 'Record deleted successfully');;
     }
 }

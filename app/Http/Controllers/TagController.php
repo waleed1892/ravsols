@@ -36,9 +36,12 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         $tag = new Tag($request->all());
         $tag->save();
-        return  redirect('admin/tags');
+        return  redirect('admin/tags')->with('success', 'Record added successfully');;
         //
     }
 
@@ -73,8 +76,11 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         $tag->update($request->all());
-        return redirect('admin/tags');
+        return redirect('admin/tags')->with('success', 'Record updated successfully');
         //
     }
 
@@ -87,6 +93,6 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $tag->delete();
-        return redirect(route('tags.index'));
+        return redirect(route('tags.index'))->with('success', 'Record deleted successfully');
     }
 }

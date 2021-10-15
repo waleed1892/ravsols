@@ -50,7 +50,7 @@ class TechnologyController extends Controller
         $input['image'] = $image_name;
         $tech = new Technology($input);
         $tech->save();
-        return redirect('admin/technologies');
+        return redirect('admin/technologies')->with('success', 'Record added successfully');
 
     }
 
@@ -87,7 +87,6 @@ class TechnologyController extends Controller
     public function update(Request $request, Technology $technology)
     {
         $request->validate([
-            'image' => 'required',
             'title' => 'required',
         ]);
 
@@ -97,7 +96,7 @@ class TechnologyController extends Controller
             $input['image'] = $image_name;
         }
         $technology->update($input);
-        return redirect('admin/technologies');
+        return redirect('admin/technologies')->with('success', 'Record updated successfully');
     }
 
     /**
@@ -110,6 +109,6 @@ class TechnologyController extends Controller
     {
         //
         $technology->delete();
-        return redirect(route('technologies.index'));
+        return redirect(route('technologies.index'))->with('success', 'Record deleted successfully');
     }
 }

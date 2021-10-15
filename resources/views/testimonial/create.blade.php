@@ -14,20 +14,18 @@
                 </ul>
             </div>
         @endif
-        <form id="postForm" enctype="multipart/form-data" method="post" action="{{route('technologies.update',$technology->id)}}">
+        <form id="postForm" enctype="multipart/form-data" method="post" action="{{route('testimonials.store')}}">
             @csrf
-            @method('PUT')
             <div>
-                <input
-                    class="custom-input"
-                    placeholder="Title" type="input"  value="{{$technology->title}}" name="title"/>
-
+                <input class="custom-input mt-4" placeholder="Name" type="input" name="name"/>
+                <input class="custom-input mt-4" placeholder="Designation" type="input" name="designation"/>
+                <input class="custom-input mt-4" placeholder="Company" type="input" name="company"/>
+                <textarea rows="10" cols="50" class="custom-input mt-4" placeholder="Message" name="message"></textarea>
                 <input id="imageInput" class="custom-input mt-4" accept="image/*" type="file" name="image">
                 <div class="w-36 h-36 rounded bg-gray-100 mt-4 shadow-sm border border-gray-200">
                     <img class="w-full h-full object-contain" id="imagePreview"
-                         src="{{url("storage/images/".$technology->image)}}" alt="select iamge">
+                         src="https://via.placeholder.com/150x150?text=Add+image" alt="select iamge">
                 </div>
-
                 <button type="submit" class="bg-green-600 text-sm rounded text-white p-2 uppercase mt-4 px-6 py-2 font-semibold">save
                 </button>
             </div>
@@ -41,7 +39,6 @@
 
 @endpush
 @push('after_main_scripts')
-    {{--    <script type="text/javascript" src="{{asset('js/postEditor.js')}}"></script>--}}
     <script>
         $(document).ready(function () {
             $("#imageInput").on('change', function (e) {
@@ -50,5 +47,4 @@
             })
         });
     </script>
-
 @endpush

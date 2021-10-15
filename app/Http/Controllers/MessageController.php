@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
+
+    public function index()
+    {
+//        $posts = ::paginate();
+        return view('post.index')->with(['posts' => $posts]);
+    }
+
+
+
     public function send(Request $request)
     {
         $request->validate([

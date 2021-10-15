@@ -7,6 +7,8 @@
         <x-admin.sidebarlink text="Projects" href="admin/projects"/>
         <x-admin.sidebarlink text="Tags" href="admin/tags"/>
         <x-admin.sidebarlink text="Technologies" href="admin/technologies"/>
+        <x-admin.sidebarlink text="Testimonials" href="admin/testimonials"/>
+        <x-admin.sidebarlink text="Inquires" href="admin/inquires"/>
         {{--        <x-admin.sidebarlink text="products" href="/admin/products"/>--}}
         {{--        <x-admin.sidebarlink text="brands" href="/admin/brands"/>--}}
         {{--        <x-admin.sidebarlink text="categories" href="/admin/categories"/>--}}

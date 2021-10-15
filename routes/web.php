@@ -27,6 +27,8 @@ Route::prefix('admin')->group(function () {
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
     Route::resource('tags', \App\Http\Controllers\TagController::class);
     Route::resource('technologies', \App\Http\Controllers\TechnologyController::class);
+    Route::resource('testimonials', \App\Http\Controllers\TestimonialController::class);
+    Route::resource('inquires', \App\Http\Controllers\MessageController::class);
 });
 
 Route::get('blog', 'App\Http\Controllers\PostController@blogPosts');

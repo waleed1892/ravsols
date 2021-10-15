@@ -4,6 +4,17 @@
 @endpush
 @section('content')
     <div class="bg-white shadow rounded-sm px-6 py-8">
+        @if ($errors->any())
+            <div class="error-block" role="alert">
+                <span class="block font-weight-bold sm:inline">Please Fill the form properly.</span>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li><p><span class="block sm:inline">{{ $error }}</span></p></li>
+
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form id="postForm" enctype="multipart/form-data" method="post" action="{{route('projects.update',$project->id   )}}}">
             @csrf
             @method('PUT')
