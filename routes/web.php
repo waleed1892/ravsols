@@ -19,7 +19,7 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::post('message', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
+Route::post('messagesend', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
 
 Route::redirect('admin', 'admin/posts');
 Route::prefix('admin')->group(function () {

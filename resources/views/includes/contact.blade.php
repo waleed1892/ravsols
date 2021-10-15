@@ -32,9 +32,11 @@
                                       rows="5"></textarea>
                             <div class="invalid-feedback"></div>
                         </div>
+
                         <div class="d-none alert alert-success w-100 my-md-3" role="alert" data-success-message>
                             Thanks, a member of our team will be in touch shortly.
                         </div>
+
                         <div class="d-none alert alert-danger w-100 my-md-3" role="alert" data-error-message>
                             Please fill all fields correctly.
                         </div>
