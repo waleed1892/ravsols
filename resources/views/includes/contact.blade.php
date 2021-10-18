@@ -58,7 +58,7 @@
                                     </path>
                                 </g>
                             </svg>
-                            <span>Send</span>
+                            <span id="send-btn">Send</span>
                         </button>
                     </form>
                 </div>
@@ -66,3 +66,20 @@
         </div>
     </div>
 </section>
+@push('after_main_scripts')
+    <script type="text/javascript" src="{{asset('js/postEditor.js')}}"></script>
+    <script>
+
+
+
+        {{--$(document).ready(function () {--}}
+        {{--    postEditor.setContents(JSON.parse(@json($post->content)));--}}
+
+        {{--    $('.posttags').select2();--}}
+        {{--    $('.posttags').val(@json($postTags)).trigger('change');--}}
+
+
+        {{--})--}}
+    </script>
+
+@endpush

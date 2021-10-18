@@ -11,7 +11,11 @@
                     <div class="col col-md-10 col-xl-9 py-4 py-sm-5">
                         <div class="my-4 my-md-5">
                             <div class="d-flex align-items-center mb-3 mb-xl-4">
-                                <a href="#" class="badge badge-pill badge-danger">Design</a>
+                                <div>
+                                    @foreach($post->tags as $tag)
+                                        <a href="#" class="badge badge-pill badge-danger">{{$tag->name}}</a>
+                                    @endforeach
+                                </div>
                                 <div
                                     class="ml-3 text-small text-muted">{{$post->created_at->toFormattedDateString()}}</div>
                             </div>

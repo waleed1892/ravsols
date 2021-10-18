@@ -19,7 +19,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-            $projects = Project::paginate();
+            $projects = Project::paginate(10);
             return view('project.index')->with(['projects' => $projects]);
     }
 

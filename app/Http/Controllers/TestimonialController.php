@@ -15,7 +15,7 @@ class TestimonialController extends Controller
      */
     public function index()
     {
-        $testimonials = Testimonial::paginate();
+        $testimonials = Testimonial::paginate(5);
         return view('testimonial.index')->with(['testimonials' => $testimonials]);
     }
 
