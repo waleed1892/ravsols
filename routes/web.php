@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -20,15 +21,18 @@ Route::get('/', function () {
 });
 
 Route::post('messagesend', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
+Route::get('login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
+Route::post('authenticate', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('auth');
 
 Route::redirect('admin', 'admin/posts');
-Route::prefix('admin')->group(function () {
+Route::middleware(['authenticate'])->prefix('admin')->group(function () {
     Route::resource('posts', \App\Http\Controllers\PostController::class);
     Route::resource('projects', \App\Http\Controllers\ProjectController::class);
     Route::resource('tags', \App\Http\Controllers\TagController::class);
     Route::resource('technologies', \App\Http\Controllers\TechnologyController::class);
     Route::resource('testimonials', \App\Http\Controllers\TestimonialController::class);
     Route::resource('inquires', \App\Http\Controllers\MessageController::class);
+    Route::get('/logout', [LoginController::class, 'logout']);
 });
 
 Route::get('blog', 'App\Http\Controllers\PostController@blogPosts');
