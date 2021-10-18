@@ -1,5 +1,15 @@
 @extends('layouts.admin')
 @section('content')
+    @if ($message = Session::get('success'))
+        <div class="alert successAlert my-4" role="alert">
+            <div class="flex">
+                <button type="button" class="close mx-4" data-dismiss="alert">×</button>
+                <div>
+                    <p class="font-bold">{{ $message }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
 
     <div class="text-right">
     </div>
@@ -24,9 +34,10 @@
                         <div class="text-sm leading-5 text-gray-800">{{$message->message}}</div>
                     </td>
                     <td class="flex items-center my-2">
-                        <a href=""
+                        <a href="/admin/inquires/{{$message->id}}"
                            class="bg-indigo-600 rounded text-white px-4 py-1 hover:bg-indigo-700">View</a>
-                        <form method="post" class="ml-2" action="">
+
+                        <form method="post" class="ml-2" action="{{route('inquires.destroy',$message->id)}}">
                             @csrf
                             @method('delete')
                             <button type="submit"
