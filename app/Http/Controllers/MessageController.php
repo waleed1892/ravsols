@@ -39,7 +39,7 @@ class MessageController extends Controller
 //        ];
 //
 //
-        Mail::to('muaaz9911@gmail.com')->send(new ContactMail('sdfsdfsdf'));
+        Mail::to('muaaz9911@gmail.com')->send(new ContactMail($request));
 
         return response()->json('Message sent successfully');
     }

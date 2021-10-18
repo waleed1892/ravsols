@@ -10,16 +10,17 @@ use Illuminate\Queue\SerializesModels;
 class ContactMail extends Mailable
 {
     use Queueable, SerializesModels;
-public $message;
+public $inquiry;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($request)
     {
         //
-        $this->message = $message;
+        $this->inquiry =$request;
+
     }
 
     /**
@@ -30,7 +31,7 @@ public $message;
     public function build()
     {
         return $this->subject('Ravsol new inquiry message')
-            ->view('emails.contactMail')->with(['message'=>$this->message]);
+            ->view('emails.contactMail')->with('message',$this->inquiry);
 
     }
 }

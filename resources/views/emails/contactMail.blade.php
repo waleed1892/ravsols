@@ -4,10 +4,12 @@
     <title>Ravsols</title>
 </head>
 <body>
-{{$message}}
-{{--<h1>{{ $details['title'] }}</h1>--}}
-<p>There is a new inquiry message</p>
+<h2>RavSols</h2>
 
-<p>Thank you</p>
+<p>You received a new inquiry from : {{ $inquiry->name }}</p>
+<h3>Here are the details:</h3>
+<p><b>Name:</b> {{ $inquiry->name }}</p>
+<p><b>Email:</b> {{ $inquiry->email }}</p>
+<p><b>Message:</b> {{ $inquiry->message }}</p>
 </body>
 </html>
