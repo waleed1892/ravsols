@@ -29,6 +29,7 @@
         "@tanem/svg-injector": "^8.2.1",
         "aos": "^2.3.4",
         "bootstrap": "^4.5.3",
+        "chosen-js": "^1.8.7",
         "flickity": "^2.2.1",
         "highlight.js": "^11.1.0",
         "ion-rangeslider": "^2.3.1",

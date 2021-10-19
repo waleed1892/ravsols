@@ -3,7 +3,6 @@ import "quill/dist/quill.core.css";
 import "quill/dist/quill.snow.css";
 import {QuillDeltaToHtmlConverter} from "quill-delta-to-html";
 
-
 $(document).ready(function () {
     let toolbarOptions = [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
@@ -45,7 +44,10 @@ $(document).ready(function () {
         fd.append('content', JSON.stringify(content));
         fd.append('html_content', html)
         axios.post('/admin/posts', fd).then(res => {
-            window.location = '/admin/posts';
+            console.log(res.data)
+            window.location = '/admin/posts?success=Record added successfully';
+        }).catch(err => {
+            console.log(err,'error')
         })
     })
 
@@ -59,7 +61,8 @@ $(document).ready(function () {
         fd.append('content', JSON.stringify(content));
         fd.append('html_content', html)
         axios.post(`/admin/posts/${post_id}`, fd).then(res => {
-            window.location = '/admin/posts';
+            console.log(res.data)
+            window.location = '/admin/posts?success=Record updated successfully';
         })
     })
 

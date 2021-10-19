@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Tag;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function App\save_iamge;
+use function App\save_image;
 
 class PostController extends Controller
 {
@@ -16,22 +20,25 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate();
-        if (\request()->is('admin/posts')) {
-            return view('post.index')->with(['posts' => $posts]);
-        } else {
-            return view('blog')->with(['posts' => $posts]);
-        }
+        $posts = Post::paginate(10);
+        return view('post.index')->with(['posts' => $posts]);
+    }
+
+    public function blogPosts()
+    {
+        $posts = Post::where('published', 1)->with('tags')->paginate();
+        return view('blog')->with(['posts' => $posts]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * //     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('post.create');
+        $tags = Tag::all();
+        return view('post.create')->with(['tags' => $tags]);
     }
 
     /**
@@ -42,18 +49,24 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
         $request->validate([
+            'image' => 'required',
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'meta_tag' => 'required',
+            'description' => 'required',
         ]);
+
+        $image_name = save_image($request->image);
         $input = $request->all();
-        $image = $request->image;
         $input['slug'] = Str::slug($input['title']);
-        $name = time() . $image->getClientOriginalName();
-        $input['image'] = $name;
-        $image->storeAs('public/images', $name);
+        $input['image'] = $image_name;
         $post = new Post($input);
         $post->save();
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
         return 'post created successfully';
     }
 
@@ -66,10 +79,18 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->first();
+        $relatedPosts = Post::limit(3)->get();
+
+
+//        $relatedPosts = Post::whereHas('tags', function (Builder $query) use($post) {
+//            $query->whereIn('tags', $post->tags);
+//        })->get();
+
+
         if (!$post) {
             abort(404);
         }
-        return view('post.show')->with('post', $post);
+        return view('post.show')->with(['post'=>$post, 'relatedPosts'=>$relatedPosts]);
     }
 
     /**
@@ -80,7 +101,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('post.edit')->with('post', $post);
+        $tags = Tag::all();
+        $postTags = $post->tags->pluck('id');
+        return view('post.edit')->with(['post' => $post, 'tags' => $tags, 'postTags' => $postTags]);
     }
 
     /**
@@ -94,18 +117,27 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'meta_tag' => 'required',
+            'description' => 'required',
         ]);
+
         $input = $request->all();
-        if ($request->image) {
-            Storage::delete($post->image);
-            $post->image->delete();
-            $image = $request->image;
-            $name = time() . $image->getClientOriginalName();
-            $input['image'] = $name;
-            $image->storeAs('public/images', $name);
+
+        if ($request->has('image')) {
+//            dd('ddd');
+            $image_name = save_image($request->image);
+            $input['image'] = $image_name;
         }
+
+        $input['slug'] = Str::slug($request['title']);
+        $request->has('published') ? $input['published'] = $request->published : $input['published'] = 0;
         $post->update($input);
+
+        if ($request->has('tags')) {
+            $post->tags()->sync($request->tags);
+        }
+
         return 'post updated successfully';
     }
 

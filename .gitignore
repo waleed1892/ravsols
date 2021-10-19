@@ -11,3 +11,9 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+.idea/workspace.xml
+/public/css/admin.css
+/public/css/app.css
+/public/js/admin.js
+/public/js/app.js
+
