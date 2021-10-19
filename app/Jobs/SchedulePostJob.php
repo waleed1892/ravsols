@@ -33,9 +33,7 @@ class SchedulePostJob implements ShouldQueue
     {
         $date = Carbon::now();
         $currenTtimestamp = $date->toDateTimeString();
-        $posts = \App\Models\Post::where('post_schedule_time', '>', $currenTtimestamp)->get();
-        foreach ($posts as $post) {
-            $post->update(['published' => '1']);
-        }
+        \App\Models\Post::where('post_schedule_time', '>', $currenTtimestamp)->update(['published' => '1']);
+
     }
 }
