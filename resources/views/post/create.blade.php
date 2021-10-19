@@ -32,9 +32,12 @@
 
                 <div class="mt-5">
                     <label for="start">Schedule Post date:</label>
-                    <input type="date" id="start" class="custom-input" name="schedule_post"
+                    <input type="datetime-local" id="start" class="custom-input" name="post_schedule_time"
                            value=""
                            max="2028-12-31">
+{{--                    <input type="date" id="start" class="custom-input" name="date"--}}
+{{--                           value=""--}}
+{{--                           max="2028-12-31">--}}
                 </div>
 
                 <div class="mt-4">

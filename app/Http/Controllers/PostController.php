@@ -7,6 +7,8 @@ use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use function App\save_iamge;
+use function App\save_image;
 
 class PostController extends Controller
 {
@@ -17,13 +19,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        if (\request()->is('admin/posts')) {
-            $posts = Post::paginate();
-            return view('post.index')->with(['posts' => $posts]);
-        } else {
-            $posts = Post::where('published',1)->paginate();
-            return view('blog')->with(['posts' => $posts]);
-        }
+        $posts = Post::paginate();
+        return view('post.index')->with(['posts' => $posts]);
+    }
+
+    public function blogPosts()
+    {
+        $posts = Post::where('published', 1)->paginate();
+        return view('blog')->with(['posts' => $posts]);
     }
 
     /**
@@ -45,21 +48,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+//        dd($request->all());
         $request->validate([
             'image' => 'required',
             'title' => 'required',
             'content' => 'required',
         ]);
 
+        $image_name = save_image($request->image);
         $input = $request->all();
-        $image = $request->image;
         $input['slug'] = Str::slug($input['title']);
-        $name = time() . $image->getClientOriginalName();
-        $input['image'] = $name;
-        $image->storeAs('public/images', $name);
+        $input['image'] = $image_name;
         $post = new Post($input);
         $post->save();
-        if($request->has('tags')){
+        if ($request->has('tags')) {
             $post->tags()->sync($request->tags);
         }
         return 'post created successfully';
@@ -90,7 +92,7 @@ class PostController extends Controller
     {
         $tags = Tag::all();
         $postTags = $post->tags->pluck('id');
-        return view('post.edit')->with(['post' => $post, 'tags'=>$tags , 'postTags'=>$postTags]);
+        return view('post.edit')->with(['post' => $post, 'tags' => $tags, 'postTags' => $postTags]);
     }
 
     /**
@@ -102,28 +104,26 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-
-//        dd($request->all());
         $request->validate([
             'title' => 'required',
             'content' => 'required',
         ]);
 
-        $post['slug'] = Str::slug($request['title']);
-        $post['schedule_post'] = $request->schedule_post;
-        if($request->has('image')){
-        $image = $request->image;
-        $name = time() . $image->getClientOriginalName();
-        $post->image = $name;
-        $image->storeAs('public/images', $name);
+        $input = $request->all();
+
+        if ($request->has('image')) {
+//            dd('ddd');
+            $image_name = save_image($request->image);
+            $input['image'] = $image_name;
         }
 
-        if($request->has('tags')){
+        $input['slug'] = Str::slug($request['title']);
+        $request->has('published') ? $input['published'] = $request->published : $input['published'] = 0;
+        $post->update($input);
+
+        if ($request->has('tags')) {
             $post->tags()->sync($request->tags);
         }
-        $request->has('published')?$post->published = $request->published:  $post->published = 0;
-        $post->save();
-//        $post->update( $request->all());
 
         return 'post updated successfully';
     }
