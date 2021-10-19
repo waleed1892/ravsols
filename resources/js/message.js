@@ -7,7 +7,7 @@ $("#contactForm").on('submit', function (e) {
     const svg = form.find('svg');
     svg.css('display', 'block')
     button.html('Sending')
-    axios.post('message', data).then(
+    axios.post('messagesend', data).then(
         res => {
             const successAlert = $("[data-success-message]");
             successAlert.removeClass('d-none')

@@ -12,6 +12,8 @@
 
             <div>
                 <input class="custom-input" placeholder="Title" type="input" name="title" value="{{$post->title}}"/>
+                <input class="custom-input mt-4" placeholder="Meta tags" value="{{$post->meta_tag}}" type="input" required name="meta_tag"/>
+                <input class="custom-input mt-4" placeholder="Description" value="{{$post->description}}" type="input" required name="description"/>
 
                 <input id="imageInput" class="custom-input mt-4" accept="image/*" type="file" name="image">
 

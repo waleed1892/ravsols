@@ -17,9 +17,10 @@
         <form id="postForm" enctype="multipart/form-data" method="post" action="{{route('posts.store')}}">
             @csrf
             <div>
-                <input
-                    class="custom-input"
-                    placeholder="Title" type="input" required name="title"/>
+                <input class="custom-input " placeholder="Title" type="input" required name="title"/>
+                <input class="custom-input mt-4" placeholder="Meta Tag" type="input" required name="meta_tag"/>
+                <input class="custom-input mt-4" placeholder="Description" type="input" required name="description"/>
+
                 <input id="imageInput" class="custom-input mt-4" required accept="image/*" type="file" name="image">
                 <div class="w-36 h-36 rounded bg-gray-100 mt-4 shadow-sm border border-gray-200">
                     <img class="w-full h-full object-contain"   id="imagePreview"

@@ -53,6 +53,8 @@ class PostController extends Controller
             'image' => 'required',
             'title' => 'required',
             'content' => 'required',
+            'meta_tag' => 'required',
+            'description' => 'required',
         ]);
 
         $image_name = save_image($request->image);
@@ -107,6 +109,8 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'meta_tag' => 'required',
+            'description' => 'required',
         ]);
 
         $input = $request->all();
