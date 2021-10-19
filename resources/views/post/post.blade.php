@@ -8,7 +8,11 @@
         <div class="p-4 p-md-5 col-xl-7 d-flex align-items-center">
             <div class="p-lg-4 p-xl-5 w-100">
                 <div class="d-flex justify-content-between align-items-center mb-3 mb-xl-4">
-                    <a href="#" class="badge badge-pill badge-danger">Design</a>
+                    <div>
+                        @foreach($post->tags as $tag)
+                            <a href="#" class="badge badge-pill badge-danger">{{$tag->name}}</a>
+                        @endforeach
+                    </div>
                     <div
                         class="text-small text-muted">{{$post->created_at->toFormattedDateString()}}</div>
                 </div>

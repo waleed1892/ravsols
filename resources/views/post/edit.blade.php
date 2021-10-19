@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <div class="bg-white shadow rounded-sm px-6 py-8">
-        {{--        {{dd($post)}}--}}
+        {{--                {{dd($postTags)}}--}}
         <form id="postEditForm" enctype="multipart/form-data" method="post" action="{{route('posts.store')}}">
             @csrf
             @method('PUT')
@@ -12,8 +12,10 @@
 
             <div>
                 <input class="custom-input" placeholder="Title" type="input" name="title" value="{{$post->title}}"/>
-                <input class="custom-input mt-4" placeholder="Meta tags" value="{{$post->meta_tag}}" type="input" required name="meta_tag"/>
-                <input class="custom-input mt-4" placeholder="Description" value="{{$post->description}}" type="input" required name="description"/>
+                <input class="custom-input mt-4" placeholder="Meta tags" value="{{$post->meta_tag}}" type="input"
+                       required name="meta_tag"/>
+                <input class="custom-input mt-4" placeholder="Description" value="{{$post->description}}" type="input"
+                       required name="description"/>
 
                 <input id="imageInput" class="custom-input mt-4" accept="image/*" type="file" name="image">
 
@@ -28,11 +30,17 @@
 
             <div class="mt-5">
                 <label for="" class="mt-5"> Select tags</label>
-                <select class="custom-input js-example-basic-multiple" name="tags[]" value="" multiple="multiple">
+                <select class="posttags custom-input" name="tags[]" multiple="multiple">
                     @foreach($tags as $tag)
                         <option value="{{$tag->id}}">{{$tag->name}}</option>
                     @endforeach
                 </select>
+
+{{--                <select class="techs-multiple custom-input" name="technologies[]" multiple="multiple">--}}
+{{--                    @foreach($techs as $tech)--}}
+{{--                        <option value="{{$tech->id}}">{{$tech->title}}</option>--}}
+{{--                    @endforeach--}}
+{{--                </select>--}}
             </div>
 
             <div class="mt-5">
@@ -45,7 +53,7 @@
             <div class="mt-4">
                 <input type="checkbox" class="" id="is_published" name="published"
                        @if($post->published ==1) checked=checked @endif
-                        value="1">
+                       value="1">
                 <label for="">Publish</label>
             </div>
             <button class="bg-green-600 text-sm rounded text-white p-2 uppercase mt-4 px-6 py-2 font-semibold">save
@@ -59,11 +67,15 @@
 @push('after_main_scripts')
     <script type="text/javascript" src="{{asset('js/postEditor.js')}}"></script>
     <script>
-        $(document).ready(function () {
-            postEditor.setContents(JSON.parse(@json($post->content)))
-        })
 
-        $('.js-example-basic-multiple').select2();
-        $('.js-example-basic-multiple').val(@json($postTags)).trigger('change');
+        $(document).ready(function () {
+            postEditor.setContents(JSON.parse(@json($post->content)));
+
+            $('.posttags').select2();
+            $('.posttags').val(@json($postTags)).trigger('change');
+
+
+        })
     </script>
+
 @endpush

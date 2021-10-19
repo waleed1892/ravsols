@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Tag;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -19,13 +20,13 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate();
+        $posts = Post::paginate(10);
         return view('post.index')->with(['posts' => $posts]);
     }
 
     public function blogPosts()
     {
-        $posts = Post::where('published', 1)->paginate();
+        $posts = Post::where('published', 1)->with('tags')->paginate();
         return view('blog')->with(['posts' => $posts]);
     }
 
@@ -78,10 +79,18 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->first();
+        $relatedPosts = Post::limit(3)->get();
+
+
+//        $relatedPosts = Post::whereHas('tags', function (Builder $query) use($post) {
+//            $query->whereIn('tags', $post->tags);
+//        })->get();
+
+
         if (!$post) {
             abort(404);
         }
-        return view('post.show')->with('post', $post);
+        return view('post.show')->with(['post'=>$post, 'relatedPosts'=>$relatedPosts]);
     }
 
     /**

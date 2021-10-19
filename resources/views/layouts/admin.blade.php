@@ -31,6 +31,7 @@
             <div class="w-4/12">
                 <div class="text-right">
                     <a href="/" class="text-white">Visit Site</a>
+                    <a href="/admin/logout" class="text-white ml-3">Logout</a>
                 </div>
             </div>
         </div>
