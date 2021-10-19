@@ -9,16 +9,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
           rel="stylesheet">
-
-{{--jquery--}}
-{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">--}}
-{{--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">--}}
-
     <link rel="stylesheet" href="{{asset('css/admin.css')}}">
-
-{{--    //seledct2--}}
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{asset('css/select2.min.css')}}">
     @stack('styles')
+
 </head>
 
 <body>
@@ -47,13 +41,10 @@
 </div>
 @stack('before_main_scripts')
 <script src="{{asset('js/admin.js')}}"></script>
-
-{{--//add jquery--}}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
-{{--selecl2--}}
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{--<script src="{{asset('js/select2.min.js')}}"></script>--}}
 @stack('after_main_scripts')
+<script src="{{asset('js/select2.min.js')}}"></script>
 </body>
 </html>

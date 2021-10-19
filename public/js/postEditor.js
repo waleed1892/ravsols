@@ -18272,6 +18272,7 @@ $(document).ready(function () {
     fd.append('content', JSON.stringify(content));
     fd.append('html_content', html);
     axios.post('/admin/posts', fd).then(function (res) {
+      console.log(res.data);
       window.location = '/admin/posts';
     })["catch"](function (err) {
       console.log(err, 'error');
@@ -18287,7 +18288,8 @@ $(document).ready(function () {
     fd.append('content', JSON.stringify(content));
     fd.append('html_content', html);
     axios.post("/admin/posts/".concat(post_id), fd).then(function (res) {
-      console.log(res.data); // window.location = '/admin/posts';
+      console.log(res.data);
+      window.location = '/admin/posts';
     });
   });
   $("#imageInput").on('change', function (e) {

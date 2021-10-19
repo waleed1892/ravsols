@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\SchedulePostJob;
 use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
@@ -28,15 +29,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-
-        // publish the posts schedullely
         $schedule->call(function () {
-            $date = Carbon::now();
-            $currentDate =$date->toDateString();
-            $posts = \App\Models\Post::where('schedule_post', $currentDate)->get() ;
-            foreach ($posts as $post){
-                $post->update(['published'=> '1']);
-            }
+            SchedulePostJob::dispatch();
         })->everyMinute();
     }
 
