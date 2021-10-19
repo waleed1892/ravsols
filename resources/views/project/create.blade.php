@@ -3,7 +3,20 @@
     <link rel="stylesheet" href="{{asset('highlight/styles/monokai.min.css')}}">
 @endpush
 @section('content')
-    <div class="bg-white shadow rounded-sm px-6 py-8">
+    <div class="bg-white text-danger shadow rounded-sm px-6 py-8">
+
+        @if ($errors->any())
+            <div class="error-block" role="alert">
+                <span class="block font-weight-bold sm:inline">Please Fill the form properly.</span>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li><p><span class="block sm:inline">{{ $error }}</span></p></li>
+
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form id="postForm" enctype="multipart/form-data" method="post" action="{{route('projects.store')}}">
             @csrf
             <div>
@@ -37,16 +50,14 @@
                 </div>
 
 
-
-
-
                 <div class="mt-4">
                     <input type="checkbox" class="" id="is_featured" name="featured" value="1">
                     <label for="">Featured</label>
                 </div>
 
 
-                <button type="submit" class="bg-green-600 text-sm rounded text-white p-2 uppercase mt-4 px-6 py-2 font-semibold">save
+                <button type="submit"
+                        class="bg-green-600 text-sm rounded text-white p-2 uppercase mt-4 px-6 py-2 font-semibold">save
                 </button>
             </div>
 
@@ -59,7 +70,7 @@
 
 @endpush
 @push('after_main_scripts')
-{{--    <script type="text/javascript" src="{{asset('js/postEditor.js')}}"></script>--}}
+    {{--    <script type="text/javascript" src="{{asset('js/postEditor.js')}}"></script>--}}
     <script>
         $(document).ready(function () {
             $("#imageInput").on('change', function (e) {

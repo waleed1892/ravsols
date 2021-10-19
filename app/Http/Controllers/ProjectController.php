@@ -8,6 +8,7 @@ use App\Models\Tag;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use function App\save_image;
 
 class ProjectController extends Controller
 {
@@ -29,7 +30,6 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
         $tags = Tag::all();
         $techs = Technology::all();
         return view('project.create')->with(['tags' => $tags, 'techs'=> $techs ]);
@@ -50,21 +50,18 @@ class ProjectController extends Controller
         ]);
 
         $input = $request->all();
-
-        $image = $request->image;
-        $name = time() . $image->getClientOriginalName();
-        $input['image'] = $name;
-        $image->storeAs('public/images', $name);
+        $image_name = save_image($request->image);
+        $input['image'] = $image_name;
         $project = new Project($input);
         $project->save();
+
         if($request->has('tags')){
             $project->tags()->sync($request->tags);
         }
         if($request->has('technologies')){
             $project->technologies()->sync($request->technologies);
         }
-        return redirect('admin/projects');
-
+        return redirect('admin/projects')->with('success', 'Record added successfully');
     }
 
     /**
@@ -108,21 +105,18 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
 //        dd($request->all());
-//        $request->validate([
-//            'image' => 'required',
-//            'title' => 'required',
-//            'link' => 'required',
-//        ]);
+        $request->validate([
+            'title' => 'required',
+            'link' => 'required',
+        ]);
 
         $input = $request->all();
         if($request->has('image')) {
-            $image = $request->image;
-            $name = time() . $image->getClientOriginalName();
-            $input['image'] = $name;
-            $image->storeAs('public/images', $name);
+            $image_name = save_image($request->image);
+            $input['image'] = $image_name;
         }
         $project->update($input);
-//        dd('sdf');
+
         if($request->has('tags')){
             $project->tags()->detach();
             $project->tags()->sync($request->tags);
@@ -131,7 +125,7 @@ class ProjectController extends Controller
             $project->technologies()->sync($request->technologies);
         }
 
-        return redirect('admin/projects');
+        return redirect('admin/projects') ->with('success', 'Record updated successfully');;
     }
 
     /**
@@ -143,6 +137,6 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->delete();
-        return redirect(route('projects.index'));
+        return redirect(route('projects.index')) ->with('success', 'Record deleted successfully');;
     }
 }

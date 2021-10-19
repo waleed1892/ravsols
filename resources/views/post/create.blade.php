@@ -4,15 +4,25 @@
 @endpush
 @section('content')
     <div class="bg-white shadow rounded-sm px-6 py-8">
+        @if ($errors->any())
+            <div class="error-block" role="alert">
+                <span class="block font-weight-bold sm:inline">Please Fill the form properly.</span>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li><p><span class="block sm:inline">{{ $error }}</span></p></li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form id="postForm" enctype="multipart/form-data" method="post" action="{{route('posts.store')}}">
             @csrf
             <div>
                 <input
                     class="custom-input"
-                    placeholder="Title" type="input" name="title"/>
-                <input id="imageInput" class="custom-input mt-4" accept="image/*" type="file" name="image">
+                    placeholder="Title" type="input" required name="title"/>
+                <input id="imageInput" class="custom-input mt-4" required accept="image/*" type="file" name="image">
                 <div class="w-36 h-36 rounded bg-gray-100 mt-4 shadow-sm border border-gray-200">
-                    <img class="w-full h-full object-contain" id="imagePreview"
+                    <img class="w-full h-full object-contain"   id="imagePreview"
                          src="https://via.placeholder.com/150x150?text=Add+image" alt="select iamge">
                 </div>
 
@@ -23,7 +33,7 @@
 
                 <div class="mt-5">
                     <label for="" class="mt-5"> Select tags</label>
-                    <select class="js-example-basic-multiple custom-input" name="tags[]" multiple="multiple">
+                    <select class="js-example-basic-multiple custom-input" required name="tags[]" multiple="multiple">
                         @foreach($tags as $tag)
                             <option value="{{$tag->id}}">{{$tag->name}}</option>
                         @endforeach

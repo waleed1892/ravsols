@@ -1,5 +1,15 @@
 @extends('layouts.admin')
 @section('content')
+    @if (app('request')->input('success'))
+        <div class="alert successAlert my-4" role="alert">
+            <div class="flex">
+                <button type="button" class="close mx-4" data-dismiss="alert">×</button>
+                <div>
+                    <p class="font-bold">{{ app('request')->input('success') }}</p>
+                </div>
+            </div>
+        </div>
+    @endif
     <div class="text-right">
         <a href="/admin/posts/create"
            class="inline-block bg-blue-500 text-sm rounded text-white p-2 uppercase hover:bg-blue-600 mb-3">Create New

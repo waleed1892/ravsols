@@ -26,7 +26,7 @@
 
             <div class="mt-5">
                 <label for="" class="mt-5"> Select tags</label>
-                <select class="js-example-basic-multiple custom-input" name="tags[]" value="" multiple="multiple">
+                <select class="custom-input js-example-basic-multiple" name="tags[]" value="" multiple="multiple">
                     @foreach($tags as $tag)
                         <option value="{{$tag->id}}">{{$tag->name}}</option>
                     @endforeach
@@ -46,8 +46,6 @@
                         value="1">
                 <label for="">Publish</label>
             </div>
-
-
             <button class="bg-green-600 text-sm rounded text-white p-2 uppercase mt-4 px-6 py-2 font-semibold">save
             </button>
         </form>

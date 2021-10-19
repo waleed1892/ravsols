@@ -18273,7 +18273,7 @@ $(document).ready(function () {
     fd.append('html_content', html);
     axios.post('/admin/posts', fd).then(function (res) {
       console.log(res.data);
-      window.location = '/admin/posts';
+      window.location = '/admin/posts?success=Record added successfully';
     })["catch"](function (err) {
       console.log(err, 'error');
     });
@@ -18289,7 +18289,7 @@ $(document).ready(function () {
     fd.append('html_content', html);
     axios.post("/admin/posts/".concat(post_id), fd).then(function (res) {
       console.log(res.data);
-      window.location = '/admin/posts';
+      window.location = '/admin/posts?success=Record updated successfully';
     });
   });
   $("#imageInput").on('change', function (e) {
