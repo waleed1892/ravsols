@@ -24,6 +24,7 @@
 
 
                 <input class="custom-input mt-4 " placeholder="Project Link" type="input" name="link"/>
+                <input class="custom-input mt-4 " placeholder="Project description" type="input" name="description"/>
 
                 <div class="mt-5">
                     <label for="" class="mt-5"> Select tags</label>

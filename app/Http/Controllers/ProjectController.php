@@ -23,6 +23,11 @@ class ProjectController extends Controller
             return view('project.index')->with(['projects' => $projects]);
     }
 
+    public function allProjects(){
+        $projects = Project::paginate(2);
+        return view('projects')->With(['projects'=>$projects]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

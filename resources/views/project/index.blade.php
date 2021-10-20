@@ -11,6 +11,19 @@
             </div>
         </div>
     @endif
+
+    <div class="mt-5">
+        <label for="" class="mt-5"> Order By</label>
+        <select class="sorting custom-input"   name="sort">
+{{--            @foreach($tags as $tag)--}}
+                <option value="asc">Asc</option>
+                <option value="desc">Desc</option>
+{{--            @endforeach--}}
+        </select>
+    </div>
+
+
+
     <div class="text-right">
         <a href="/admin/projects/create"
            class="inline-block bg-blue-500 text-sm rounded text-white p-2 uppercase hover:bg-blue-600 mb-3">Create New
