@@ -16,11 +16,7 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
-Route::post('messagesend', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
+Route::post('messageSend', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
 Route::get('login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
 Route::post('authenticate', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('auth');
 
@@ -36,5 +32,7 @@ Route::middleware(['authenticate'])->prefix('admin')->group(function () {
 });
 
 Route::get('blog', 'App\Http\Controllers\PostController@blogPosts');
+Route::get('/', 'App\Http\Controllers\HomeController@index');
+Route::get('/projects', 'App\Http\Controllers\HomeController@allProjects');
 Route::get('/{any}', [\App\Http\Controllers\PostController::class, 'show'])->where('any', '.*');
 
