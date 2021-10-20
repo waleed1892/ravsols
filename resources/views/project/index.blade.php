@@ -14,7 +14,7 @@
 
     <div class="mt-5">
         <label for="" class="mt-5"> Order By</label>
-        <select class="sorting custom-input"   name="sort">
+        <select class="pp custom-input"  onchange="getval(this);" id="sorting"  name="sort">
 {{--            @foreach($tags as $tag)--}}
                 <option value="asc">Asc</option>
                 <option value="desc">Desc</option>
@@ -71,3 +71,16 @@
         </div>
     </div>
 @endsection
+<script>
+    function getval(sel)
+    {
+        axios.get(`/admin/projects`).then(res => {
+            console.log(res.data)
+
+
+        }).catch(err => {
+            console.log(err,'error')
+        })
+        // alert(sel.value);
+    }
+</script>
