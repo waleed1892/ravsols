@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Jorenvh\Share\Share;
 use function App\save_iamge;
 use function App\save_image;
 
@@ -78,15 +79,23 @@ class PostController extends Controller
      */
     public function show($slug)
     {
+        $socialShare = \Share::page(
+            'https://www.nicesnippets.com/blog/laravel-custom-foreign-key-name-example',
+            'Laravel Custom Foreign Key Name Example',
+        )
+            ->facebook()
+            ->twitter()
+            ->linkedin()->getRawLinks();
         $post = Post::where('slug', $slug)->first();
-        $ids=$post->tags->pluck('id');
-        $relatedPosts = Post::whereHas('tags', function($q) use($ids) {
+        $ids = $post->tags->pluck('id');
+
+        $relatedPosts = Post::whereHas('tags', function ($q) use ($ids) {
             $q->whereIn('tag_id', $ids);
         })->get();
         if (!$post) {
             abort(404);
         }
-        return view('post.show')->with(['post' => $post, 'relatedPosts' => $relatedPosts]);
+        return view('post.show')->with(['post' => $post, 'relatedPosts' => $relatedPosts, 'socialShare' => $socialShare]);
     }
 
     /**
