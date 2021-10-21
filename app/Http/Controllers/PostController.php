@@ -26,7 +26,7 @@ class PostController extends Controller
 
     public function blogPosts()
     {
-        $posts = Post::where('published', 1)->with('tags')->paginate(1);
+        $posts = Post::where('published', 1)->with('tags')->paginate(20);
         return view('blog')->with(['posts' => $posts]);
     }
 

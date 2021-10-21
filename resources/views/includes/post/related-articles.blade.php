@@ -20,7 +20,7 @@
                             <p class="lead">{!! \Illuminate\Support\Str::limit($post->html_content,'100') !!}</p>
                             <a href="/{{$post->slug}}">Read Story</a>
                         </div>
-                        <div class="card-footer d-flex justify-content-between align-items-center">
+                        <div class="card-footer ">
                             @foreach($post->tags as $tag)
                                 <a href="#" class="badge badge-pill badge-danger">{{$tag->name}}</a>
                             @endforeach

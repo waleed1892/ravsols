@@ -24,7 +24,7 @@ class ProjectController extends Controller
     }
 
     public function allProjects(){
-        $projects = Project::paginate(2);
+        $projects = Project::paginate(10);
         return view('projects')->With(['projects'=>$projects]);
     }
 

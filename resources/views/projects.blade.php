@@ -40,9 +40,6 @@
                     </div>
                 @endforeach
             </div>
-
-
-
             <div class="row justify-content-center mt-4">
                 <div class="col-auto">
                     {{$projects->links('vendor.pagination.bootstrap-4')}}
