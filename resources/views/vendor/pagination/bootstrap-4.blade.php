@@ -4,11 +4,21 @@
             {{-- Previous Page Link --}}
             @if ($paginator->onFirstPage())
                 <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.previous')">
-                    <span class="page-link" aria-hidden="true">&lsaquo;</span>
+                    <a class="page-link rounded" href="" aria-label="Previous">
+                        <img src="{{asset('images/icons/interface/icon-arrow-left.svg')}}"
+                             alt="Arrow Left"
+                             class="icon icon-xs bg-primary" data-inject-svg>
+                    </a>
+{{--                    <span class="page-link" aria-hidden="true">&lsaquo;</span>--}}
                 </li>
             @else
                 <li class="page-item">
-                    <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                    <a class="page-link rounded" href="{{ $paginator->previousPageUrl() }}" aria-label="Previous">
+                        <img src="{{asset('images/icons/interface/icon-arrow-left.svg')}}"
+                             alt="Arrow Left"
+                             class="icon icon-xs bg-primary" data-inject-svg>
+                    </a>
+{{--                    <a class="page-link" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>--}}
                 </li>
             @endif
 
@@ -30,15 +40,24 @@
                     @endforeach
                 @endif
             @endforeach
-
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li class="page-item">
-                    <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>
+                    <a class="page-link rounded" href="{{ $paginator->nextPageUrl() }}" aria-label="Next">
+                        <img src="{{asset('images/icons/interface/icon-arrow-right.svg')}}"
+                             alt="Arrow Right"
+                             class="icon icon-xs bg-primary" data-inject-svg>
+                    </a>
+{{--                    <a class="page-link" href="{{ $paginator->nextPageUrl() }}" rel="next" aria-label="@lang('pagination.next')">&rsaquo;</a>--}}
                 </li>
             @else
                 <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
-                    <span class="page-link" aria-hidden="true">&rsaquo;</span>
+{{--                    <span class="page-link" aria-hidden="true">&rsaquo;</span>--}}
+                    <a class="page-link rounded" href="" aria-label="Next">
+                        <img src="{{asset('images/icons/interface/icon-arrow-right.svg')}}"
+                             alt="Arrow Right"
+                             class="icon icon-xs bg-primary" data-inject-svg>
+                    </a>
                 </li>
             @endif
         </ul>

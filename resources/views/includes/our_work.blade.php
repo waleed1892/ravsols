@@ -56,7 +56,7 @@
 
     <div class="d-flex flex-column flex-sm-row justify-content-center mt-4 mt-md-5" data-aos="fade-up"
          data-aos-delay="300">
-        <a data-smooth-scroll href="/projects" class="btn btn-primary btn-lg mx-sm-2 my-1 my-sm-0">See
+        <a data-smooth-scroll href="/project" class="btn btn-primary btn-lg mx-sm-2 my-1 my-sm-0">See
             all projects</a>
     </div>
 </section>

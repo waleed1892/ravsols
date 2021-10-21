@@ -16,7 +16,7 @@
 
             <div class="collapse navbar-collapse order-3 order-lg-2 justify-content-lg-end" id="navigation-menu">
                 <ul class="navbar-nav my-3 my-lg-0">
-                    <li class="nav-item"><a class=" nav-link nav-item" href="/projects">Projects</a></li>
+                    <li class="nav-item"><a class=" nav-link nav-item" href="/project">Projects</a></li>
                     <li class="nav-item"><a class=" nav-link nav-item" href="/blog">Blogs</a></li>
                     <li class="nav-item"><a class=" nav-link nav-item" href="#">Shop</a></li>
                 </ul>

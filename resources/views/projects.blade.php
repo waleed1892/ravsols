@@ -14,7 +14,7 @@
             </div>
             <div class="row justify-content-center">
                 @foreach($projects as $project )
-                    <div class="col-xl-5 col-lg-9 col-md-10 mb-3 mb-sm-5">
+                    <div class="col-xl-6 col-lg-9 col-md-10 mb-3 mb-sm-5">
                         <div class="card h-100 hover-box-shadow bg-white">
                             <a target="_blank" href="https://bss.ravsols.com" rel="noopener"
                                class="d-block bg-gradient rounded-top position-relative">
