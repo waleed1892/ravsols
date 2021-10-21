@@ -21,15 +21,5 @@ class HomeController extends Controller
             'testimonials'=>$testimonials,
             'technologies'=>$technologies,
         ]);
-
-    }
-
-    public function allProjects(){
-
-        $projects = Project::all();
-        return view('projects')->with([
-            'projects'=>$projects,
-        ]);
-
     }
 }
