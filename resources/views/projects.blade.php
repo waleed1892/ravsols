@@ -3,10 +3,6 @@
     <div class="loader">
         <div class="loading-animation"></div>
     </div>
-
-
-    {{--    @dd($projects->links())--}}
-
     <section class="bg-primary-3 text-white">
         <div class="container">
             <div class="row section-title justify-content-center text-center">
@@ -44,43 +40,39 @@
                     </div>
                 @endforeach
             </div>
-            {{--            {{$projects->links()}}--}}
+
+
 
             <div class="row justify-content-center mt-4">
                 <div class="col-auto">
-                    {!! $projects->links() !!}
-                    {{--                    <nav>--}}
-                    {{--                        <ul class="pagination">--}}
-                    {{--                            <li class="page-item">--}}
-                    {{--                                <a class="page-link"></a>--}}
+                    {{$projects->links('vendor.pagination.bootstrap-4')}}
+{{--                    <nav>--}}
+{{--                        <ul class="pagination">--}}
+{{--                            <li class="page-item">--}}
+{{--                                <a class="page-link rounded" href="#" aria-label="Previous">--}}
+{{--                                    <img src="assets/img/icons/interface/icon-arrow-left.svg" alt="Arrow Left"--}}
+{{--                                         class="icon icon-xs bg-primary" data-inject-svg>previous--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                            @for($i=1 ; $i<= $projects->lastPage; $i++)--}}
 
-                    {{--                            </li>--}}
-
-                    {{--                            <li class="page-item">--}}
-                    {{--                                <a class="page-link rounded" href="#" aria-label="Previous">--}}
-                    {{--                                    <img src="assets/img/icons/interface/icon-arrow-left.svg" alt="Arrow Left"--}}
-                    {{--                                         class="icon icon-xs bg-primary" data-inject-svg>--}}
-                    {{--                                </a>--}}
-                    {{--                            </li>--}}
-                    {{--                            @for($i=1 ; $i<= $projects->lastPage; $i++)--}}
-
-                    {{--                                <li class="page-item active"><a class="page-link" href="#">{{$i}}</a>--}}
-                    {{--                                </li>--}}
-                    {{--                            @endfor--}}
-                    {{--                            <li class="page-item active"><a class="page-link" href="#">1</a>--}}
-                    {{--                            </li>--}}
-                    {{--                            <li class="page-item"><a class="page-link" href="#">2</a>--}}
-                    {{--                            </li>--}}
-                    {{--                            <li class="page-item"><a class="page-link" href="#">3</a>--}}
-                    {{--                            </li>--}}
-                    {{--                            <li class="page-item">--}}
-                    {{--                                <a class="page-link rounded" href="#" aria-label="Next">--}}
-                    {{--                                    <img src="assets/img/icons/interface/icon-arrow-right.svg" alt="Arrow Right"--}}
-                    {{--                                         class="icon icon-xs bg-primary" data-inject-svg>--}}
-                    {{--                                </a>--}}
-                    {{--                            </li>--}}
-                    {{--                        </ul>--}}
-                    {{--                    </nav>--}}
+{{--                                <li class="page-item active"><a class="page-link" href="#">{{$i}}</a>--}}
+{{--                                </li>--}}
+{{--                            @endfor--}}
+{{--                            <li class="page-item active"><a class="page-link" href="#">1</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="page-item"><a class="page-link" href="#">2</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="page-item"><a class="page-link" href="#">3</a>--}}
+{{--                            </li>--}}
+{{--                            <li class="page-item">--}}
+{{--                                <a class="page-link rounded" href="#" aria-label="Next">next--}}
+{{--                                    <img src="assets/img/icons/interface/icon-arrow-right.svg" alt="Arrow Right"--}}
+{{--                                         class="icon icon-xs bg-primary" data-inject-svg>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        </ul>--}}
+{{--                    </nav>--}}
                 </div>
             </div>
         </div>

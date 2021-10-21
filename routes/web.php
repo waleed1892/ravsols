@@ -21,12 +21,13 @@ Route::post('messageSend', [\App\Http\Controllers\MessageController::class, 'sen
 Route::get('login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
 Route::post('authenticate', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('auth');
 Route::get('blog', 'App\Http\Controllers\PostController@blogPosts');
+Route::get('getProjects', 'App\Http\Controllers\ProjectController@ajaxProjects');
 
-Route::get('project', function () {
-    $projects = \App\Models\Project::paginate(2);
-    return view('projects')->With(['projects' => $projects]);
-});
-//Route::get('/project', 'App\Http\Controllers\HomeController@allProjects');
+//Route::get('project', function () {
+//    $projects = \App\Models\Project::paginate(2);
+//    return view('projects')->With(['projects' => $projects]);
+//});
+Route::get('/project', 'App\Http\Controllers\ProjectController@allProjects');
 
 Route::redirect('admin', 'admin/posts');
 Route::middleware(['authenticate'])->prefix('admin')->group(function () {
