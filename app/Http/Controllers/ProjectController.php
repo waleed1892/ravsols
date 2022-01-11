@@ -17,10 +17,15 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
             $projects = Project::paginate(10);
             return view('project.index')->with(['projects' => $projects]);
+    }
+
+    public function allProjects(){
+        $projects = Project::paginate(10);
+        return view('projects')->With(['projects'=>$projects]);
     }
 
     /**

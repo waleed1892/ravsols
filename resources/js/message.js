@@ -9,7 +9,7 @@ $("#contactForm").on('submit', function (e) {
     // svg.css('display', 'block')
     // button.text('Sending')
     // $("#send-btn").text("Hello world!");
-    axios.post('messagesend', data).then(
+    axios.post('messageSend', data).then(
         res => {
             const successAlert = $("[data-success-message]");
             $("#send-btn").text('send');
@@ -42,6 +42,5 @@ $('#contactForm .form-control').on('input', (e) => {
     if ($(e.target).hasClass('is-invalid')) {
         $(e.target).removeClass('is-invalid')
     }else{
-        // $("#send-btn").text('sensdfsdfd');
     }
 });

@@ -23,6 +23,7 @@
 
 
                 <input class="custom-input mt-4 " placeholder="Project Link" value="{{$project->link}}" type="input" name="link"/>
+                <input class="custom-input mt-4 " placeholder="Project description" value="{{$project->description}}" type="input" name="desctiption"/>
 
                 <div class="mt-5">
                     <label for="" class="mt-5"> Select tags</label>

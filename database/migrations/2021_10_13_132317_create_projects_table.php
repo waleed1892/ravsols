@@ -17,6 +17,8 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('link');
+            $table->string('description');
+            $table->integer('order')->nullable();
             $table->string('image');
             $table->boolean('featured')->default(false);
             $table->timestamps();

@@ -8,6 +8,24 @@
     </div>
     <div class="highlight-selected"
          data-flickity='{ "imagesLoaded": true, "wrapAround":true, "pageDots":false, "adaptiveHeight":true, "autoPlay":3000 }'>
+
+        @foreach($testimonials as $testimonial)
+            <div class="carousel-cell col-xl-7 col-md-8">
+                <div class="row align-items-center justify-content-start justify-content-sm-center mx-3 mx-xl-4">
+                    <div class="col-sm-auto mb-4 mb-sm-0">
+                        <img class="img-fluid avatar avatar-xl" src="{{url("storage/images/".$testimonial->image)}}"
+                             alt="Harvey Derwent avatar image">
+                    </div>
+                    <div class="col pl-lg-4">
+                        <h4 class="h2">{{$testimonial->name}}</h4>
+                        <h4 class="h5">{{$testimonial->company}}</h4>
+                        <p>{{$testimonial->message}}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        @endforeach
         <div class="carousel-cell col-xl-7 col-md-8">
             <div class="row align-items-center justify-content-start justify-content-sm-center mx-3 mx-xl-4">
                 <div class="col-sm-auto mb-4 mb-sm-0">
@@ -39,54 +57,6 @@
                         <mark data-aos="highlight-text" data-aos-delay="200">Ravsols helped us rise above all and
                             conquer.
                         </mark>
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-cell col-xl-7 col-md-8">
-            <div class="row align-items-center justify-content-start justify-content-sm-center mx-3 mx-xl-4">
-                <div class="col-sm-auto mb-4 mb-sm-0">
-                    <img class="img-fluid avatar avatar-xl" src="{{asset('images/avatars/female-4.jpg')}}"
-                         alt="Shelley McNabb avatar image">
-                </div>
-                <div class="col pl-lg-4">
-                    <h4 class="h2">&ldquo;Long build times are a thing of the past!&rdquo;</h4>
-                    <p>
-                        We all know the stigma around build times and the ever expanding arsenal of tooling in modern
-                        web apps.
-                        Fear not, Ravsols does away with all of that.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-cell col-xl-7 col-md-8">
-            <div class="row align-items-center justify-content-start justify-content-sm-center mx-3 mx-xl-4">
-                <div class="col-sm-auto mb-4 mb-sm-0">
-                    <img class="img-fluid avatar avatar-xl" src="{{asset('images/avatars/female-3.jpg')}}"
-                         alt="Mary Goddard avatar image">
-                </div>
-                <div class="col pl-lg-4">
-                    <h4 class="h2">&ldquo;Top notch support on-call? Yes please.&rdquo;</h4>
-                    <p>
-                        Product support comes first when we are considering a new service. Do yourself a favour and
-                        choose
-                        Ravsols, we have found the support to be second to none.
-                    </p>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-cell col-xl-7 col-md-8">
-            <div class="row align-items-center justify-content-start justify-content-sm-center mx-3 mx-xl-4">
-                <div class="col-sm-auto mb-4 mb-sm-0">
-                    <img class="img-fluid avatar avatar-xl" src="{{asset('images/avatars/male-2.jpg')}}"
-                         alt="Bradley Singleton avatar image">
-                </div>
-                <div class="col pl-lg-4">
-                    <h4 class="h2">&ldquo;Ravsols gives us total peace of mind.&rdquo;</h4>
-                    <p>
-                        Living up to their reputation for support and reliablity, Ravsols has delivered once again on
-                        all
-                        fronts. Any bugs we find are dealt with promptly.
                     </p>
                 </div>
             </div>

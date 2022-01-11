@@ -26,7 +26,7 @@ class PostController extends Controller
 
     public function blogPosts()
     {
-        $posts = Post::where('published', 1)->with('tags')->paginate();
+        $posts = Post::where('published', 1)->with('tags')->paginate(20);
         return view('blog')->with(['posts' => $posts]);
     }
 
@@ -79,18 +79,14 @@ class PostController extends Controller
     public function show($slug)
     {
         $post = Post::where('slug', $slug)->first();
-        $relatedPosts = Post::limit(3)->get();
-
-
-//        $relatedPosts = Post::whereHas('tags', function (Builder $query) use($post) {
-//            $query->whereIn('tags', $post->tags);
-//        })->get();
-
-
+        $ids=$post->tags->pluck('id');
+        $relatedPosts = Post::whereHas('tags', function($q) use($ids) {
+            $q->whereIn('tag_id', $ids);
+        })->get();
         if (!$post) {
             abort(404);
         }
-        return view('post.show')->with(['post'=>$post, 'relatedPosts'=>$relatedPosts]);
+        return view('post.show')->with(['post' => $post, 'relatedPosts' => $relatedPosts]);
     }
 
     /**

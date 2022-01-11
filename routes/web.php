@@ -16,13 +16,12 @@ use Illuminate\Support\Facades\Storage;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
-Route::post('messagesend', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
+Route::get('/', 'App\Http\Controllers\HomeController@index');
+Route::post('messageSend', [\App\Http\Controllers\MessageController::class, 'send'])->name('sendMessage');
 Route::get('login', [\App\Http\Controllers\LoginController::class, 'login'])->name('login');
 Route::post('authenticate', [\App\Http\Controllers\LoginController::class, 'authenticate'])->name('auth');
+Route::get('blog', 'App\Http\Controllers\PostController@blogPosts');
+Route::get('/project', 'App\Http\Controllers\ProjectController@allProjects');
 
 Route::redirect('admin', 'admin/posts');
 Route::middleware(['authenticate'])->prefix('admin')->group(function () {
@@ -34,7 +33,6 @@ Route::middleware(['authenticate'])->prefix('admin')->group(function () {
     Route::resource('inquires', \App\Http\Controllers\MessageController::class);
     Route::get('/logout', [LoginController::class, 'logout']);
 });
-
-Route::get('blog', 'App\Http\Controllers\PostController@blogPosts');
 Route::get('/{any}', [\App\Http\Controllers\PostController::class, 'show'])->where('any', '.*');
+//Route::get('getProjects', 'App\Http\Controllers\ProjectController@ajaxProjects');
 
